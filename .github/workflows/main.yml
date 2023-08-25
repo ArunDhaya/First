@@ -1,0 +1,16 @@
+image: maven:3-jdk-8
+
+stages:
+   - build
+   - deploy
+
+build: 
+   stage: delpoy
+   script:
+      - mvn clean package
+
+deploy:
+  stage: deploy
+  script: 
+     - apt-get updatev&& apt-get install -y curl
+     -curl --upload-file target/*.war "https://arhcangel:archangel@192.168.213.67:8080/manager/text/deploy?path=<context_path>&update=true"
